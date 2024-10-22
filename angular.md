@@ -130,4 +130,6 @@ función que servirá para diferenciar dos elementos iguales.
 ```
 Otra directiva poderosisima para conseguir una web dinamica y veloz es `ngSwitch`.
 
+## Referencias.
+1. [Lista de reproducción Angular - Gentleman Programming](https://youtube.com/playlist?list=PL42UNLc8e48RINrNGumxAKulG5CWgs_yv&si=7zsJgqIDEgIVHGtT) 
 

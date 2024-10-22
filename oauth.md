@@ -36,3 +36,7 @@ realidad permitía a una aplicación maliciosa acceder a correos, contactos y
 documentos. Google detuvo el ataque en aproximadamente una hora. En este caso el
 ataque no fue explotando una vulnerabilidad del flujo de autenticación sino del
 propio usuario.
+
+
+## Referencias
+1. [Wikipedia entrada inglesa sobre OAuth](https://en.wikipedia.org/wiki/OAuth) 
