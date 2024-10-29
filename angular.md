@@ -17,7 +17,69 @@ usar *standaralone componentes*.
 
 </center>
 
+## Desarrollo
+
+### LSP en Nvim La relación entre el servidor de lenguaje instalado por Mason y
+las dependencias de NPM tiene que ver con cómo el Angular Language Server
+funciona dentro de tu proyecto.
+
+1. Mason instala el Angular Language Server de manera global en tu sistema, lo
+que te permite usar Angular LSP en tu editor (en este caso Neovim). Este
+servidor se encarga de analizar tu código Angular y proveer características como
+autocompletado, navegación, y detección de errores, entre otros.
+
+2. NPM gestiona las dependencias de tu proyecto Angular. El paquete
+`@angular/language-service` es una dependencia de desarrollo que proporciona
+funcionalidades adicionales necesarias para que el servidor de lenguaje funcione
+correctamente dentro de tu proyecto específico. Sin esta dependencia instalada
+en el proyecto, el servidor no puede funcionar porque no encuentra las versiones
+adecuadas de las bibliotecas que necesita para analizar el código.
+
+Aunque Mason gestiona la instalación del servidor de lenguaje de Angular de
+forma global, este servidor aún necesita interactuar con las dependencias del
+proyecto (como @angular/language-service). Si no encuentra la versión adecuada
+de esta dependencia en tu proyecto, el servidor fallará al iniciarse. Resumen de
+la relación:
+
+1. Mason instala el servidor de lenguaje, que es una herramienta que tu editor
+   usa para brindar soporte de lenguaje.
+2. NPM gestiona las dependencias locales de tu proyecto, como
+   @angular/language-service, que son requeridas por el servidor de lenguaje
+para analizar tu código correctamente.
+
+En este caso, el error ocurre porque el servidor instalado por Mason no
+encuentra la versión mínima requerida del paquete @angular/language-service en
+tu proyecto.
+
 ## Estructura de ficheros
+Es fundamental dar estructura, al final Angular va de eso. Es fundamental dar
+estructura, al final Angular va de eso.ntes en angular teniamos modulos para
+representar páginas o features, ahora lo que tenemos son componentes que se
+valen por si mismos, por lo que tenemos que dar estructura de otra manera. Antes
+con un módulo compartido especificabamos que se compartía por features. Para
+cosneguir este objetivo ahora usamos la propia estructura de ficheroes así los
+primeros componentes iran en el directorio `app/`.
+
+```html
+app/
+  components/
+    layout/
+      main-compoent/
+    toolbar/ <!-- Esto es un componente página -->
+      toolbar.component.html
+      toolbar.component.ts
+      toolbar.component.css
+    welcome/
+    <!-- esto es otro componente página -->
+```
+
+Dentro de la carpeta `layout` se encuentra todo lor relacionado con el layout,
+igual con el resto de carpetas, todo muy autoespicativo. Si unicamente se
+contiene el componente con su html, ts y css; es lo que se concoe cómo
+componente página o *contenedor*. Estos compoenntes unicamente dan estructura,
+especifican cómo se van a mostrar el contenido en la página. Dentro de estas
+puede haber otros componentes con su propia lógica, pero el contenedor principal
+debe ser estructural.
 
 - package.json → Documento para el gestor de dependencias.
 - angular.json → Documento de configuración de angular.
@@ -29,6 +91,29 @@ formaters.
 - app → Contienen los componentes de la aplicación y es una buena practica
 colocar los diferentes componentes hasta el nivel donde se utilizan, haciendo
 así que la propia estructura de carpetas refleje la estructura de la UI.
+
+### Barrels
+Los barrels (o "barriles" en español) en el desarrollo con Angular son una técnica de organización de código que permite agrupar y exportar múltiples módulos desde un único punto de entrada. Esto se logra típicamente mediante la creación de un archivo index.ts en un directorio de componentes o módulos.
+
+Un barrel en Angular funciona de la siguiente manera:
+- Se crea un archivo index.ts en el directorio del componente o módulo.
+- Este archivo index.ts exporta todos los elementos relevantes del directorio.
+- Permite importar múltiples elementos desde una única ubicación.
+
+```text
+user/
+  ├── user.component.ts
+  ├── user.service.ts
+  ├── user.model.ts
+  └── index.ts
+```
+
+```ts
+export * from './user.component';
+export * from './user.service';
+export * from './user.model';
+
+```
 
 ## Detección de cambios
 En la propagación despues de un evento en un componente por defecto se
@@ -201,6 +286,10 @@ usuario interactua con la vista, el componente presentacional lanza un evento al
 contenedor. El componente presentacional es abnostico al contexto, es muy facil
 de reutilizar en el mismo proyecto u otro. Este patrón vuelve el frontend más
 resiliente.
+
+
+## Configurar Angular con Spring y maven.
+
 
 ## Referencias.
 1. [Lista de reproducción Angular - Gentleman Programming](https://youtube.com/playlist?list=PL42UNLc8e48RINrNGumxAKulG5CWgs_yv&si=7zsJgqIDEgIVHGtT) 
