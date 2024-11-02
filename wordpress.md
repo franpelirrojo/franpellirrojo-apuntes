@@ -73,6 +73,32 @@ hay un inconveniente de método, estos entornos suponen una abstracción inicial
 del entorno sobre el que se está desarrollando, cosa que limita la comprensión
 de lo que estamos haciendo *realmente*.
 
+### [wp-env](https://www.npmjs.com/package/@wordpress/env)
+Esta herramient escrita en javascript (necesita node) permite levantar un
+entorno local rápido basado en Docker (necesita docker). `wp-env` genera los
+ficheros en el directorio `~/.wp-env`, que contiene una subcarpeta por cada
+proyecto, que se montan en el contenedor docker subyacente. Se puede configurar,
+hasta cierto punto, la instalación en el archivo `.wp-env.json`, para
+configuraciones muy específicas lo mejor es usar Docker directamente. Los
+comandos más relevantes son:
+
+**wp-env start** 
+Installa e inicializa un entrono de WordPress, este comando unicamente
+reconfigurará el entorno si el archivo de conficuración cambia. Por defecto el
+la URL es localhost, el puerto 8888, el puerto de test 8889, el usuario es
+admin, la contraseña password, el usuario de la base de datos root y la
+contraseña password.
+
+**wp-env run**
+Permite pasar comandos de shell a los contenedores subyacentes.
+
+> [!IMPORTANT] Si existe conflicto con uno de los comadnos propios de wp-env
+> puede usarse `--` para saltar el comando de wp-env.
+
+```text
+wp-env run <container> [command...]
+```
+
 ## Temas
 Los temas controlan la presentación mientras que los plugins el comportamiento.
 A la hora de desarrollar un tema debemos prestar atención a: colores, layout,
@@ -168,6 +194,6 @@ estiquetas específicas. Son componentes, de hecho usa React por debajo.**
 ## Referencias
 1. [Docker Setup for Local WordPress Development](https://www.youtube.com/watch?v=GG2k-La5t3o)
 2. [Easy Local WordPress Setup in 5 Minutes with Docker](https://www.youtube.com/watch?v=gEceSAJI_3s)
-3. [Quick and easy local WordPress development with wp-env](https://developer.wordpress.org/news/2023/03/28/quick-and-easy-local-wordpress-development-with-wp-env/)
-4. [Beginner Wordpress developer](https://youtube.com/playlist?list=PL1pJFUVKQ7ETYqC5F_z4BOJ4FoT7xZy_u&si=vZdTL8vn62R3X9IJ)
-5. [Plugin Handbook](https://developer.wordpress.org/plugins/)
+3. [Beginner Wordpress developer](https://youtube.com/playlist?list=PL1pJFUVKQ7ETYqC5F_z4BOJ4FoT7xZy_u&si=vZdTL8vn62R3X9IJ)
+4. [Plugin Handbook](https://developer.wordpress.org/plugins/)
+5. [@wordpress/env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/#add-mu-plugins-and-other-mapped-directories)
